@@ -1,0 +1,844 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  background-color: #09090b;
+  color: #fafafa;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.main-content {
+  min-height: 85vh;
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Premium Buttons */
+.btn {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+  display: inline-block;
+  text-align: center;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.5);
+  filter: brightness(1.1);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Base Headings */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 2.2rem;
+  background: linear-gradient(to right, #ffffff, #a1a1aa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Smooth Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b; 
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a; 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46; 
+}
+
+.shopnest-hero {
+  position: relative;
+  width: 100%;
+  min-height: 570px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 20px 0 70px;
+  padding: 70px 75px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #111113 0%,
+      #0d0d0f 45%,
+      #09090b 100%
+    );
+
+  border: 1px solid #27272a;
+  border-radius: 28px;
+
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ================= BACKGROUND GLOW ================= */
+
+.shopnest-hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(2px);
+}
+
+.shopnest-glow-one {
+  width: 450px;
+  height: 450px;
+
+  right: 5%;
+  top: -150px;
+
+  background: rgba(249, 115, 22, 0.08);
+
+  box-shadow:
+    0 0 120px rgba(249, 115, 22, 0.12);
+}
+
+.shopnest-glow-two {
+  width: 300px;
+  height: 300px;
+
+  left: -150px;
+  bottom: -150px;
+
+  background: rgba(249, 115, 22, 0.05);
+}
+
+
+/* ================= HERO CONTENT ================= */
+
+.shopnest-hero-content {
+  position: relative;
+  z-index: 5;
+
+  width: 58%;
+  max-width: 700px;
+}
+
+
+/* ================= BADGE ================= */
+
+.shopnest-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 8px 14px;
+
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: 50px;
+
+  background: rgba(249, 115, 22, 0.07);
+
+  color: #fb923c;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+
+  margin-bottom: 24px;
+}
+
+.shopnest-badge-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #f97316;
+
+  box-shadow:
+    0 0 10px rgba(249, 115, 22, 0.8);
+}
+
+
+/* ================= TITLE ================= */
+
+.shopnest-hero-title {
+  margin: 0 0 25px;
+
+  color: #ffffff;
+
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1.02;
+
+  letter-spacing: -3px;
+}
+
+.shopnest-hero-title span {
+  background:
+    linear-gradient(
+      90deg,
+      #f97316,
+      #fb923c,
+      #fdba74
+    );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* ================= DESCRIPTION ================= */
+
+.shopnest-hero-description {
+  max-width: 590px;
+
+  margin: 0 0 32px;
+
+  color: #a1a1aa;
+
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.shopnest-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 45px;
+}
+
+.shopnest-primary-btn,
+.shopnest-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-height: 50px;
+
+  padding: 0 23px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.shopnest-primary-btn {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #ea580c
+    );
+
+  box-shadow:
+    0 8px 25px rgba(234, 88, 12, 0.25);
+}
+
+.shopnest-primary-btn span {
+  font-size: 20px;
+  transition: transform 0.25s ease;
+}
+
+.shopnest-primary-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 35px rgba(234, 88, 12, 0.4);
+}
+
+.shopnest-primary-btn:hover span {
+  transform: translateX(4px);
+}
+
+.shopnest-secondary-btn {
+  color: #d4d4d8;
+
+  border: 1px solid #3f3f46;
+
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.shopnest-secondary-btn:hover {
+  color: #ffffff;
+
+  border-color: #71717a;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  transform: translateY(-3px);
+}
+
+
+/* ================= TRUST ================= */
+
+.shopnest-hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.shopnest-trust-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.shopnest-trust-item strong {
+  color: #ffffff;
+
+  font-size: 18px;
+}
+
+.shopnest-trust-item span {
+  color: #71717a;
+
+  font-size: 12px;
+}
+
+.shopnest-trust-divider {
+  width: 1px;
+  height: 30px;
+
+  background: #27272a;
+}
+
+
+/* =====================================================
+   HERO VISUAL
+===================================================== */
+
+.shopnest-hero-visual {
+  position: relative;
+
+  width: 40%;
+  min-height: 440px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ================= ORBITS ================= */
+
+.shopnest-orbit {
+  position: absolute;
+
+  border: 1px solid rgba(249, 115, 22, 0.13);
+
+  border-radius: 50%;
+}
+
+.shopnest-orbit-one {
+  width: 400px;
+  height: 400px;
+}
+
+.shopnest-orbit-two {
+  width: 300px;
+  height: 300px;
+
+  border-color: rgba(249, 115, 22, 0.18);
+}
+
+
+/* ================= MAIN SHOWCASE ================= */
+
+.shopnest-product-showcase {
+  position: relative;
+  z-index: 3;
+
+  width: 280px;
+  height: 340px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      145deg,
+      #18181b,
+      #0f0f11
+    );
+
+  border: 1px solid #3f3f46;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  transform: rotate(3deg);
+
+  transition: transform 0.4s ease;
+}
+
+.shopnest-product-showcase:hover {
+  transform: rotate(0deg) translateY(-8px);
+}
+
+
+/* ================= SHOWCASE ICON ================= */
+
+.shopnest-showcase-icon {
+  width: 82px;
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 22px;
+
+  border-radius: 22px;
+
+  font-size: 38px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(249, 115, 22, 0.2),
+      rgba(249, 115, 22, 0.05)
+    );
+
+  border: 1px solid rgba(249, 115, 22, 0.3);
+
+  box-shadow:
+    0 15px 40px rgba(249, 115, 22, 0.12);
+}
+
+.shopnest-showcase-small {
+  color: #f97316;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 12px;
+}
+
+.shopnest-product-showcase h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 25px;
+  line-height: 1.2;
+
+  letter-spacing: -0.5px;
+}
+
+.shopnest-showcase-line {
+  width: 45px;
+  height: 2px;
+
+  margin: 20px 0;
+
+  background: #f97316;
+}
+
+.shopnest-product-showcase p {
+  margin: 0;
+
+  color: #71717a;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   FLOATING CARDS
+===================================================== */
+
+.shopnest-floating-card {
+  position: absolute;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 15px;
+
+  background: rgba(24, 24, 27, 0.95);
+
+  border: 1px solid #3f3f46;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.4);
+
+  backdrop-filter: blur(10px);
+}
+
+.shopnest-card-top {
+  top: 55px;
+  right: 5px;
+}
+
+.shopnest-card-bottom {
+  bottom: 45px;
+  left: 0;
+}
+
+.shopnest-floating-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(249, 115, 22, 0.12);
+
+  color: #f97316;
+
+  font-size: 15px;
+}
+
+.shopnest-floating-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shopnest-floating-card strong {
+  color: #ffffff;
+
+  font-size: 12px;
+}
+
+.shopnest-floating-card small {
+  color: #71717a;
+
+  font-size: 10px;
+}
+
+
+/* =====================================================
+   FEATURED SECTION
+===================================================== */
+
+.shopnest-featured-section {
+  padding-bottom: 70px;
+}
+
+.shopnest-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  margin-bottom: 35px;
+}
+
+.shopnest-section-label {
+  color: #f97316;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.shopnest-section-header h2 {
+  margin: 7px 0 0;
+
+  font-size: 2.3rem;
+}
+
+.shopnest-section-header p {
+  margin-bottom: 5px;
+
+  color: #71717a;
+
+  font-size: 14px;
+}
+
+
+/* ================= LOADING ================= */
+
+.shopnest-loading {
+  min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  color: #71717a;
+}
+
+.shopnest-loader {
+  width: 35px;
+  height: 35px;
+
+  border: 3px solid #27272a;
+  border-top-color: #f97316;
+
+  border-radius: 50%;
+
+  animation: shopnest-loader-spin 0.8s linear infinite;
+}
+
+@keyframes shopnest-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+  .shopnest-hero {
+    padding: 55px 45px;
+  }
+
+  .shopnest-hero-content {
+    width: 55%;
+  }
+
+  .shopnest-hero-visual {
+    width: 45%;
+  }
+
+  .shopnest-product-showcase {
+    width: 240px;
+    height: 300px;
+  }
+
+  .shopnest-orbit-one {
+    width: 330px;
+    height: 330px;
+  }
+
+  .shopnest-orbit-two {
+    width: 250px;
+    height: 250px;
+  }
+
+  .shopnest-card-top {
+    right: -10px;
+  }
+
+  .shopnest-card-bottom {
+    left: -20px;
+  }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 760px) {
+
+  .shopnest-hero {
+    min-height: auto;
+
+    flex-direction: column;
+
+    padding: 50px 28px 35px;
+
+    margin-top: 15px;
+
+    border-radius: 20px;
+  }
+
+  .shopnest-hero-content {
+    width: 100%;
+    max-width: none;
+
+    text-align: center;
+  }
+
+  .shopnest-hero-badge {
+    font-size: 9px;
+  }
+
+  .shopnest-hero-title {
+    font-size: 3rem;
+
+    letter-spacing: -2px;
+  }
+
+  .shopnest-hero-description {
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 15px;
+  }
+
+  .shopnest-hero-actions {
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 35px;
+  }
+
+  .shopnest-hero-trust {
+    justify-content: center;
+  }
+
+  .shopnest-hero-visual {
+    width: 100%;
+
+    min-height: 400px;
+
+    margin-top: 20px;
+  }
+
+  .shopnest-card-top {
+    top: 25px;
+    right: 0;
+  }
+
+  .shopnest-card-bottom {
+    bottom: 20px;
+    left: 0;
+  }
+
+  .shopnest-section-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+  .shopnest-hero {
+    padding: 40px 20px 25px;
+  }
+
+  .shopnest-hero-title {
+    font-size: 2.45rem;
+  }
+
+  .shopnest-hero-actions {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  .shopnest-primary-btn,
+  .shopnest-secondary-btn {
+    width: 100%;
+  }
+
+  .shopnest-hero-trust {
+    gap: 13px;
+  }
+
+  .shopnest-trust-item strong {
+    font-size: 15px;
+  }
+
+  .shopnest-trust-item span {
+    font-size: 10px;
+  }
+
+  .shopnest-hero-visual {
+    min-height: 350px;
+  }
+
+  .shopnest-product-showcase {
+    width: 220px;
+    height: 285px;
+  }
+
+  .shopnest-floating-card {
+    padding: 9px 11px;
+  }
+
+  .shopnest-card-top {
+    right: -5px;
+  }
+
+  .shopnest-card-bottom {
+    left: -5px;
+  }
+
+  .shopnest-section-header h2 {
+    font-size: 2rem;
+  }
+}
