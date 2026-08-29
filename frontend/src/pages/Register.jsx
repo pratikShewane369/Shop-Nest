@@ -14,6 +14,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      console.log("API URL:", process.env.REACT_APP_API_URL);
       const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
