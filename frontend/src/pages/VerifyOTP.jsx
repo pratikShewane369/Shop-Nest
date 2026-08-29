@@ -1,20 +1,21 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { AuthContext } from '../context/AuthContext';
-import '../styles/auth.css';
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AuthContext } from "../context/AuthContext";
+import "../styles/auth.css";
 
 const VerifyOTP = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
+
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const registeredEmail = location.state?.email || '';
+  const registeredEmail = location.state?.email || "";
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (registeredEmail) {
       setEmail(registeredEmail);
     }
@@ -26,28 +27,32 @@ const VerifyOTP = () => {
 
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/auth/verify`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email,
-          otp
-        })
+          otp,
+        }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        toast.success('Account verified successfully!');
+        toast.success("Account verified successfully!");
+
+        // Backend now returns the JWT
         login(data);
-        navigate('/');
+
+        navigate("/");
       } else {
-        toast.error(data.error || data.message || 'Invalid or expired OTP');
+        toast.error(data.error || data.message || "Invalid or expired OTP");
       }
     } catch (error) {
-      console.error('OTP verification error:', error);
-      toast.error('Something went wrong. Please try again.');
+      console.error("OTP verification error:", error);
+
+      toast.error(`Something went wrong. Please try again. ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -58,9 +63,7 @@ const VerifyOTP = () => {
       <form onSubmit={handleSubmit} className="auth-form">
         <h2>Verify Your Account</h2>
 
-        <p>
-          Enter the OTP sent to your email address.
-        </p>
+        <p>Enter the OTP sent to your email address.</p>
 
         <input
           type="email"
@@ -80,7 +83,7 @@ const VerifyOTP = () => {
         />
 
         <button type="submit" className="btn" disabled={loading}>
-          {loading ? 'Verifying...' : 'Verify OTP'}
+          {loading ? "Verifying..." : "Verify OTP"}
         </button>
 
         <p>
