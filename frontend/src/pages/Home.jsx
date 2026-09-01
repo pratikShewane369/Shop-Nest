@@ -16,7 +16,6 @@ const Home = () => {
       dispatch(fetchProducts());
   }, [dispatch]);
 
-  const featuredProducts = products.slice(0, 12);
 
   return (
     <div className="home-container">
