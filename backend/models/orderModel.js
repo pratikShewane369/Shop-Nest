@@ -25,4 +25,7 @@ const orderSchema = new mongoose.Schema({
    status : {type : String, enum : ['pending','shipped', 'delivered'], default : 'pending'}
 }, {timestamps : true});
 
+// Index for faster user order queries
+orderSchema.index({ user: 1 });
+
 module.exports = mongoose.model("Order", orderSchema);

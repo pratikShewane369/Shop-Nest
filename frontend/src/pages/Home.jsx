@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../redux/productSlice';
 import ProductCard from '../components/ProductCard.jsx';
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+
+  const {
+    products,
+    loading,
+    error
+  } = useSelector((state) => state.products);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/products`);
-        const data = await res.json();
-        setProducts(data.slice(0, 12));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      dispatch(fetchProducts());
+  }, [dispatch]);
 
-    fetchProducts();
-  }, []);
+  const featuredProducts = products.slice(0, 12);
 
   return (
     <div className="home-container">
@@ -27,7 +24,6 @@ const Home = () => {
       {/* ================= HERO SECTION ================= */}
       <section className="shopnest-hero">
 
-        {/* Background decoration */}
         <div className="shopnest-hero-glow shopnest-glow-one"></div>
         <div className="shopnest-hero-glow shopnest-glow-two"></div>
 
@@ -51,17 +47,24 @@ const Home = () => {
           </p>
 
           <div className="shopnest-hero-actions">
-            <a href="#featured-products" className="shopnest-primary-btn">
+
+            <a
+              href="#featured-products"
+              className="shopnest-primary-btn"
+            >
               Explore Products
               <span>→</span>
             </a>
 
-            <a href="#featured-products" className="shopnest-secondary-btn">
+            <a
+              href="#featured-products"
+              className="shopnest-secondary-btn"
+            >
               View Collection
             </a>
+
           </div>
 
-          {/* Trust information */}
           <div className="shopnest-hero-trust">
 
             <div className="shopnest-trust-item">
@@ -119,27 +122,31 @@ const Home = () => {
 
           </div>
 
-          {/* Floating cards */}
           <div className="shopnest-floating-card shopnest-card-top">
+
             <span className="shopnest-floating-icon">✦</span>
+
             <div>
               <strong>Premium</strong>
               <small>Quality Products</small>
             </div>
+
           </div>
 
           <div className="shopnest-floating-card shopnest-card-bottom">
+
             <span className="shopnest-floating-icon">✓</span>
+
             <div>
               <strong>Secure Shopping</strong>
               <small>Shop with confidence</small>
             </div>
+
           </div>
 
         </div>
 
       </section>
-
 
       {/* ================= FEATURED PRODUCTS ================= */}
 
@@ -149,7 +156,9 @@ const Home = () => {
       >
 
         <div className="shopnest-section-header">
+
           <div>
+
             <span className="shopnest-section-label">
               OUR COLLECTION
             </span>
@@ -157,27 +166,43 @@ const Home = () => {
             <h2>
               Featured Products
             </h2>
+
           </div>
 
           <p>
             Discover some of our most popular products.
           </p>
+
         </div>
 
         {loading ? (
+
           <div className="shopnest-loading">
             <div className="shopnest-loader"></div>
             <span>Loading products...</span>
           </div>
+
+        ) : error ? (
+
+          <div className="shopnest-loading">
+            <span>Failed to load products.</span>
+          </div>
+
         ) : (
+
           <div className="product-grid">
-            {products.map((product) => (
+
+            {products.slice(0, 12).map((product) => (
+
               <ProductCard
                 key={product._id}
                 product={product}
               />
+
             ))}
+
           </div>
+
         )}
 
       </section>

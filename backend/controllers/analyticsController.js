@@ -4,16 +4,50 @@ const User = require('../models/userModel');
 
 const getAdminStats = async (req, res) => {
   try {
-    const totalOrders = await Order.countDocuments({});
-    const totalProducts = await Product.countDocuments({});
-    const totalUsers = await User.countDocuments({ role: 'user' });
+    const start = Date.now();
 
-    const orders = await Order.find({});
-    const totalRevenue = orders.reduce((acc, item) => acc + item.totalAmount, 0);
+    const [
+      totalOrders,
+      totalProducts,
+      totalUsers,
+      revenueResult
+    ] = await Promise.all([
+      Order.countDocuments({}),
+      Product.countDocuments({}),
+      User.countDocuments({ role: 'user' }),
 
-    res.json({ totalOrders, totalProducts, totalUsers, totalRevenue });
+      Order.aggregate([
+        {
+          $group: {
+            _id: null,
+            totalRevenue: {
+              $sum: '$totalAmount'
+            }
+          }
+        }
+      ])
+    ]);
+
+    const totalRevenue =
+      revenueResult.length > 0
+        ? revenueResult[0].totalRevenue
+        : 0;
+
+    console.log(`Admin Analytics API: ${Date.now() - start}ms`);
+
+    res.json({
+      totalOrders,
+      totalProducts,
+      totalUsers,
+      totalRevenue
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Analytics Error:', error);
+
+    res.status(500).json({
+      message: error.message
+    });
   }
 };
 

@@ -9,9 +9,6 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 };
 
-// =========================
-// REGISTER USER
-// =========================
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -83,16 +80,13 @@ const registerUser = async (req, res) => {
   }
 };
 
-
-// =========================
-// LOGIN USER
-// =========================
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-
+    const start = Date.now();
+    const user = await User.findOne({ email }).lean();
+    console.log(`User DB query: ${Date.now() - start}ms`); 
     // User doesn't exist
     if (!user) {
       return res.status(400).json({
@@ -102,18 +96,13 @@ const loginUser = async (req, res) => {
 
     // Check password
     const passwordMatch = await bcrypt.compare(password, user.password);
-
+    console.log(`Bcrypt compare: ${Date.now() - start}ms`);
     if (!passwordMatch) {
       return res.status(400).json({
         message: "Invalid email or password",
       });
     }
 
-    // ==========================================
-    // IMPORTANT:
-    // User exists and password is correct,
-    // but account is not verified
-    // ==========================================
     if (!user.verified) {
       // Generate NEW OTP
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
@@ -149,9 +138,8 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // ==========================================
-    // VERIFIED USER
-    // ==========================================
+    console.log(`Total Login API: ${Date.now() - start}ms`);
+
     return res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -169,10 +157,6 @@ const loginUser = async (req, res) => {
   }
 };
 
-
-// =========================
-// GET ALL USERS
-// =========================
 const getUsers = async (req, res) => {
   try {
     const users = await User.find({}).select("-password");

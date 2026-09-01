@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../redux/productSlice';
 import ProductCard from '../components/ProductCard.jsx';
 import '../styles/product.css';
 
 const Shop = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/products`);
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const dispatch = useDispatch();
 
-    fetchProducts();
-  }, []);
+  const {
+    products,
+    loading,
+    error,
+    loaded
+  } = useSelector((state) => state.products);
+
+  useEffect(() => {
+    if (!loaded) {
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, loaded]);
 
   const filteredProducts = products.filter((p) =>
     p.name?.toLowerCase().includes(search.toLowerCase())
@@ -34,6 +33,7 @@ const Shop = () => {
       <section className="shop-header">
 
         <div className="shop-heading">
+
           <span className="shop-label">
             SHOPNEST COLLECTION
           </span>
@@ -43,6 +43,7 @@ const Shop = () => {
           <p>
             Explore our collection and find something you'll love.
           </p>
+
         </div>
 
         {/* ================= SEARCH ================= */}
@@ -74,10 +75,9 @@ const Shop = () => {
 
       </section>
 
-
       {/* ================= RESULTS INFO ================= */}
 
-      {!loading && (
+      {!loading && !error && (
         <div className="shop-results-bar">
 
           <span>
@@ -100,24 +100,49 @@ const Shop = () => {
         </div>
       )}
 
-
       {/* ================= PRODUCTS ================= */}
 
       {loading ? (
+
         <div className="shop-loading">
           <div className="shop-loader"></div>
           <p>Loading products...</p>
         </div>
+
+      ) : error ? (
+
+        <div className="shop-empty">
+          <div className="shop-empty-icon">
+            ⚠️
+          </div>
+
+          <h3>Failed to load products</h3>
+
+          <p>{error}</p>
+
+          <button
+            className="shop-empty-button"
+            onClick={() => dispatch(fetchProducts())}
+          >
+            Try Again
+          </button>
+        </div>
+
       ) : filteredProducts.length > 0 ? (
+
         <div className="product-grid">
+
           {filteredProducts.map((product) => (
             <ProductCard
               key={product._id}
               product={product}
             />
           ))}
+
         </div>
+
       ) : (
+
         <div className="shop-empty">
 
           <div className="shop-empty-icon">
@@ -138,6 +163,7 @@ const Shop = () => {
           </button>
 
         </div>
+
       )}
 
     </div>

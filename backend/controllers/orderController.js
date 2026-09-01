@@ -154,15 +154,60 @@ const createOrder = async (req, res) => {
 };
 
 
+const myOrders = async (req, res) => {
+  try {
+    const start = Date.now();
 
-const myOrders = async(req, res) => {
-    try {
-        const orders = await Order.find({user : req.user._id}).populate('items.productId','name price');
-        res.json(orders);
-    } catch(err) {
-        res.status(500).json({message : `Error fetching order : ${err}`});
-    }
-}
+    const orders = await Order.find(
+      { user: req.user._id },
+      {
+        totalAmount: 1,
+        status: 1,
+        createdAt: 1
+      }
+    )
+      .sort({ createdAt: -1 })
+      .lean();
+
+    console.log(`My Orders API: ${Date.now() - start}ms`);
+
+    res.json(orders);
+
+  } catch (err) {
+    console.error('My Orders Error:', err);
+
+    res.status(500).json({
+      message: `Error fetching orders: ${err.message}`
+    });
+  }
+};
+
+// const myOrders = async (req, res) => {
+//     try {
+//         const startTime = Date.now();
+
+//         const orders = await Order.find({
+//             user: req.user._id
+//         })
+//         .select('items totalAmount address paymentId status createdAt')
+//         .populate('items.productId', 'name price')
+//         .sort({ createdAt: -1 })
+//         .lean();
+
+//         console.log(
+//             `My Orders API: ${Date.now() - startTime}ms`
+//         );
+
+//         res.json(orders);
+
+//     } catch (err) {
+//         console.error("My Orders Error:", err);
+
+//         res.status(500).json({
+//             message: `Error fetching orders: ${err.message}`
+//         });
+//     }
+// };
 
 const getOrders = async(req, res) => {
     try {
