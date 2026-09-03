@@ -8,7 +8,7 @@ const Profile = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+ 
   const { orders, loading, error, loaded } = useSelector(
     (state) => state.orders,
   );
@@ -154,7 +154,7 @@ const Profile = () => {
             You haven't placed any orders yet.
           </p>
 
-          <Link to="/shop" className="btn">
+          <Link to="/profile" className="btn">
             Start Shopping
           </Link>
         </div>
