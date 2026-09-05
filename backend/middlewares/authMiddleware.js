@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
-const protected = async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
@@ -19,5 +19,5 @@ const protected = async (req, res, next) => {
 };
 
 module.exports = {
-    protected
+    authMiddleware
 }

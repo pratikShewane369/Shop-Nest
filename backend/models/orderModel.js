@@ -21,6 +21,11 @@ const orderSchema = new mongoose.Schema({
     postalCode : {type : String, required : true},
     country : {type : String, required : true}
    },
+   paymentStatus: {
+    type: String,
+    enum: ['pending', 'paid', 'failed'],
+    default: 'pending'
+   },
    paymentId : {type : String},
    status : {type : String, enum : ['pending','shipped', 'delivered'], default : 'pending'}
 }, {timestamps : true});

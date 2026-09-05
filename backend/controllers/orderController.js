@@ -182,33 +182,6 @@ const myOrders = async (req, res) => {
   }
 };
 
-// const myOrders = async (req, res) => {
-//     try {
-//         const startTime = Date.now();
-
-//         const orders = await Order.find({
-//             user: req.user._id
-//         })
-//         .select('items totalAmount address paymentId status createdAt')
-//         .populate('items.productId', 'name price')
-//         .sort({ createdAt: -1 })
-//         .lean();
-
-//         console.log(
-//             `My Orders API: ${Date.now() - startTime}ms`
-//         );
-
-//         res.json(orders);
-
-//     } catch (err) {
-//         console.error("My Orders Error:", err);
-
-//         res.status(500).json({
-//             message: `Error fetching orders: ${err.message}`
-//         });
-//     }
-// };
-
 const getOrders = async(req, res) => {
     try {
         const orders = await Order.find({}).populate('user', 'id name');
